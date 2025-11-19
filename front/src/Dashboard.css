@@ -1,0 +1,19 @@
+.p-title {
+  text-align: center;
+}
+.products-grid {
+  display: flex; /* horizontalni raspored */
+  flex-wrap: wrap; /* prelazak u novi red */
+  justify-content: center; /* centriranje kartica */
+  gap: 20px; /* razmak između kartica */
+  padding: 20px; /* razmak sa ivica container-a */
+}
+
+.product-card {
+  flex: 0 0 200px; /* fiksna širina kartice */
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0a0101;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
