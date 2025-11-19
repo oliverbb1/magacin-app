@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate(); // dodaj navigate
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,10 +20,9 @@ export default function Login() {
         body: JSON.stringify(form),
       });
 
-      const data = await res.json(); // prvo parsiraj u JSON
+      const data = await res.json();
 
       if (!res.ok) {
-        // server je vratio grešku, prikazi msg
         setMsg(data.msg || "Greška prilikom prijave");
         return;
       }
@@ -30,6 +31,9 @@ export default function Login() {
       localStorage.setItem("token", data.token);
       setMsg(data.msg || "Uspešno ste prijavljeni!");
       setForm({ email: "", password: "" });
+
+      // preusmeri na dashboard
+      navigate("/dashboard");
     } catch (err) {
       console.error("Fetch error:", err);
       setMsg("Greška sa serverom");
