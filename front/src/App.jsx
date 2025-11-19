@@ -2,6 +2,7 @@ import SignUp from "./SignUp";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "./PrivateRoutes";
 import Login from "./Login";
+import Nav from "./Nav";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {

@@ -15,6 +15,7 @@ connectDB();
 
 // Registracija ruta
 app.use("/auth", require("./routes/auth"));
+app.use("/products", require("./routes/products"));
 
 // Start servera
 const PORT = 3000;
