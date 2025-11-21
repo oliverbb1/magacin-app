@@ -10,7 +10,7 @@
 }
 
 .product-card {
-  flex: 0 0 200px; /* fiksna širina kartice */
+  flex: 0 0 200px;
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;

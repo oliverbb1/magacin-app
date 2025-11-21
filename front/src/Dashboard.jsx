@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
-import "./Dashboard.css";
+import "./dashboard.css";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
@@ -20,6 +22,9 @@ const Dashboard = () => {
   }, []);
   return (
     <div>
+      <button onClick={() => navigate("/addProducts")}>
+        Create new product
+      </button>
       <h2 className="p-title">Dashboard - Proizvodi</h2>
       <div className="products-grid">
         {products.map((p) => (
@@ -29,6 +34,7 @@ const Dashboard = () => {
             <p>Cena: {p.cena}</p>
             <p>Količina: {p.kolicina}</p>
             <p>Dobavljač: {p.dobavljac}</p>
+            <p>Datum Dodavanja:{new Date(p.datumDodavanja).toLocaleString()}</p>
           </div>
         ))}
       </div>
