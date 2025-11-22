@@ -1,8 +1,10 @@
 import { useState } from "react";
+import Modal from "./Modal";
 
 export default function SignUp() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [msg, setMsg] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,7 +28,7 @@ export default function SignUp() {
         setMsg(data.msg || "Greška prilikom registracije");
         return;
       }
-
+      setShowModal(true);
       // uspešna registracija
       setMsg(data.msg || "Uspešno registrovan korisnik!");
       setForm({ name: "", email: "", password: "" });
@@ -37,6 +39,9 @@ export default function SignUp() {
       console.error("Fetch error:", err);
       setMsg("Greška sa serverom");
     }
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -64,6 +69,11 @@ export default function SignUp() {
         />
         <button type="submit">Registruj se</button>
       </form>
+      <Modal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        message="You have successfully registered."
+      />
       {msg && <p>{msg}</p>}
     </div>
   );

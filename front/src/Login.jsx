@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate(); // dodaj navigate
 
   const handleChange = (e) =>
@@ -26,18 +28,20 @@ export default function Login() {
         setMsg(data.msg || "Greška prilikom prijave");
         return;
       }
+      setShowModal(true);
 
       // uspešan login
       localStorage.setItem("token", data.token);
       setMsg(data.msg || "Uspešno ste prijavljeni!");
       setForm({ email: "", password: "" });
-
-      // preusmeri na dashboard
-      navigate("/dashboard");
     } catch (err) {
       console.error("Fetch error:", err);
       setMsg("Greška sa serverom");
     }
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate("/dashboard");
   };
 
   return (
@@ -59,6 +63,11 @@ export default function Login() {
         />
         <button type="submit">Prijavi se</button>
       </form>
+      <Modal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        message="You have successfully login."
+      />
       {msg && <p>{msg}</p>}
     </div>
   );
