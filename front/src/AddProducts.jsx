@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./addProduct.css";
+import Modal from "./Modal";
 import axios from "axios";
 
 const AddProducts = () => {
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -36,8 +38,8 @@ const AddProducts = () => {
         kolicina: "",
         dobavljac: "",
       });
+      setShowModal(true);
       setError("");
-      navigate("/dashboard");
       console.log(data);
     } catch (err) {
       if (err.response && err.response.data && err.response.data.msg) {
@@ -46,6 +48,11 @@ const AddProducts = () => {
         setError("Došlo je do greške. Pokušajte ponovo.");
       }
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate("/dashboard");
   };
   return (
     <div className="add-product-wrapper">
@@ -89,6 +96,11 @@ const AddProducts = () => {
           />
           <button type="submit">Create Product</button>
         </form>
+        <Modal
+          isOpen={showModal}
+          onClose={handleCloseModal}
+          message="You have successfully added a new product!"
+        />
         {error && <p className="error">{error}</p>}
       </div>
     </div>
