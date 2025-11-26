@@ -20,6 +20,18 @@ const Dashboard = () => {
     };
     getProducts();
   }, []);
+
+  const deleteProduct = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/products/${id}`
+      );
+      console.log(response.data);
+      setProducts((prev) => prev.filter((product) => product._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <button onClick={() => navigate("/addProducts")}>
@@ -35,6 +47,7 @@ const Dashboard = () => {
             <p>Količina: {p.kolicina}</p>
             <p>Dobavljač: {p.dobavljac}</p>
             <p>Datum Dodavanja:{new Date(p.datumDodavanja).toLocaleString()}</p>
+            <button onClick={() => deleteProduct(p._id)}>Obrisi Product</button>
           </div>
         ))}
       </div>
